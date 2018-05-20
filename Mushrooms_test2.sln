@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mushrooms_test2.CSharp", "Mushrooms_test2.CSharp.csproj", "{F92EBE12-3FA7-8365-6EAB-007F8C75FBD9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mushrooms_test2.CSharp.Plugins", "Mushrooms_test2.CSharp.Plugins.csproj", "{BC3CE1AD-B028-ABAE-E390-E39FAAB07316}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mushrooms_test2.CSharp.Editor", "Mushrooms_test2.CSharp.Editor.csproj", "{4C645B28-317F-F624-08BF-A1FFECDB844D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F92EBE12-3FA7-8365-6EAB-007F8C75FBD9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F92EBE12-3FA7-8365-6EAB-007F8C75FBD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F92EBE12-3FA7-8365-6EAB-007F8C75FBD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F92EBE12-3FA7-8365-6EAB-007F8C75FBD9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC3CE1AD-B028-ABAE-E390-E39FAAB07316}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC3CE1AD-B028-ABAE-E390-E39FAAB07316}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC3CE1AD-B028-ABAE-E390-E39FAAB07316}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC3CE1AD-B028-ABAE-E390-E39FAAB07316}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C645B28-317F-F624-08BF-A1FFECDB844D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C645B28-317F-F624-08BF-A1FFECDB844D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C645B28-317F-F624-08BF-A1FFECDB844D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C645B28-317F-F624-08BF-A1FFECDB844D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mushrooms_test", "Assembly-CSharp.csproj", "{959F234B-3F2E-E938-034B-E2BF58EF2EAB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mushrooms_test", "Assembly-CSharp-firstpass.csproj", "{51CF0F2D-F425-63F8-2D52-5DA8E7669402}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mushrooms_test", "Assembly-CSharp-Editor.csproj", "{BAAA9DA6-9FC1-F3F4-974D-307AC6A7EDEE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{959F234B-3F2E-E938-034B-E2BF58EF2EAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{959F234B-3F2E-E938-034B-E2BF58EF2EAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{959F234B-3F2E-E938-034B-E2BF58EF2EAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{959F234B-3F2E-E938-034B-E2BF58EF2EAB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51CF0F2D-F425-63F8-2D52-5DA8E7669402}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51CF0F2D-F425-63F8-2D52-5DA8E7669402}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51CF0F2D-F425-63F8-2D52-5DA8E7669402}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51CF0F2D-F425-63F8-2D52-5DA8E7669402}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BAAA9DA6-9FC1-F3F4-974D-307AC6A7EDEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BAAA9DA6-9FC1-F3F4-974D-307AC6A7EDEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BAAA9DA6-9FC1-F3F4-974D-307AC6A7EDEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BAAA9DA6-9FC1-F3F4-974D-307AC6A7EDEE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Assembly-CSharp.csproj
+	EndGlobalSection
+EndGlobal
