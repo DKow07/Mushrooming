@@ -18,6 +18,7 @@ public class Basket : MonoBehaviour
 
 	void Start ()
     {
+        maxCountOfMushrooms = PlayerPrefs.GetInt("currentMushroomPickerBasket", 5);
         canGather = true;
         currentCountOfMushrooms = 0;
         mushroomsInBasketText = GameObject.FindGameObjectWithTag("MushroomsInBasketText").GetComponent<Text>();

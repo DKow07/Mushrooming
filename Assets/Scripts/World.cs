@@ -33,6 +33,9 @@ public class World : MonoBehaviour
     private int obstaclesCount;
     private int treesCount;
 
+    public int obstCount;
+    public int mushCount;
+
     public List<Mushroom> mushroomsList;
 
 	void Start () 
@@ -40,10 +43,12 @@ public class World : MonoBehaviour
         UnityEngine.Random.seed = seed;
         objectsBoxes = new List<Circle>();
         mushroomsList = new List<Mushroom>();
-        objectsBoxes.Add(new Circle(new Vector3(4.77f, 2f, 5.52f), 4));  //tmp 
-        objectsBoxes.Add(new Circle(new Vector3(6.65f, 2f, 122.31f), 4));  //tmp 
-        GenerateMushrooms();
+        //objectsBoxes.Add(new Circle(new Vector3(55.37f, 2f, 59.56f), 5));  
+        //objectsBoxes.Add(new Circle(new Vector3(54.8f, 2f, 70.84f), 5));  
+        objectsBoxes.Add(new Circle(new Vector3(55f, 2f, 66f), 17));  
         GenerateObstacles();
+        //objectsBoxes.Add(new Circle(new Vector3(55f, 2f, 66f), 15));
+        GenerateMushrooms();
         Debug.Log("Grzyby = " + mushroomsCount);
         Debug.Log("Przeszkody = " + obstaclesCount);
         Debug.Log("Drzewa = " + treesCount);
@@ -56,7 +61,7 @@ public class World : MonoBehaviour
         x = Mathf.Abs(x);
         z = Mathf.Abs(z);
 
-        for (int i = 0; i < 100; i++)
+        for (int i = 0; i < mushCount; i++)
         {
             bool canInstiansiate;
 
@@ -125,6 +130,7 @@ public class World : MonoBehaviour
                     }
 
                     Mushroom m = new Mushroom(id, points, name, mush, volume);
+
                     try
                     {
                         mush.GetComponentInChildren<MushroomController>().mushroomId = id;
@@ -150,9 +156,7 @@ public class World : MonoBehaviour
         x = Mathf.Abs(x);
         z = Mathf.Abs(z);
 
-
-
-        for (int i = 0; i < 150; i++ )
+        for (int i = 0; i < obstCount; i++ )
         {
             bool canInstiansiate;
            
@@ -199,7 +203,6 @@ public class World : MonoBehaviour
                     }
                 }
 
-
             } while (!canInstiansiate);
                 
         }
@@ -213,7 +216,8 @@ public class World : MonoBehaviour
         foreach(Circle c in objectsBoxes)
         {
             Gizmos.DrawSphere(c.position, c.radius);
-        }*/
+        } 
+        */
     }
 
 

@@ -38,7 +38,6 @@ public class MushroomController : PunBehaviour
                 timeDelayedInSeconds = Convert.ToInt32(Mathf.Floor(timeDelayedInSeconds * p.GetComponent<PlayerController>().currentMushroomPickerCutting));
             }
         }
-                
     }
 
     void Update()

@@ -15,6 +15,8 @@ public class PUNManager : PunBehaviour
     public GameObject wolfPrefab;
     public GameObject duckPrefab;
     public GameObject penguinPrefab;
+    public GameObject alienPrefab;
+    public GameObject spritePrefab;
 	public GameObject Plane;
 	RoomOptions roomOption;
 
@@ -44,6 +46,10 @@ public class PUNManager : PunBehaviour
             PhotonNetwork.Instantiate(penguinPrefab.name, position, Quaternion.identity, 0);
         else if (idPrefab == 4)
             PhotonNetwork.Instantiate(wolfPrefab.name, position, Quaternion.identity, 0); 
+        else if(idPrefab == 5)
+            PhotonNetwork.Instantiate(alienPrefab.name, position, Quaternion.identity, 0);
+        else if (idPrefab == 6)
+            PhotonNetwork.Instantiate(spritePrefab.name, position, Quaternion.identity, 0); 
         else
             PhotonNetwork.Instantiate(playerPrefab.name, position, Quaternion.identity, 0); 
         
@@ -68,7 +74,7 @@ public class PUNManager : PunBehaviour
 			status.text=PhotonNetwork.connectionStateDetailed.ToString();
 		}
         //Debug.Log(PhotonNetwork.playerList.Length);
-        if (PhotonNetwork.playerList.Length >= 2|| isDebugMode)
+        if (PhotonNetwork.playerList.Length >= 2|| isDebugMode || PreferencesManager.isDebugMode)
         {
             startingBlackPanel.SetActive(false);
             if (GameObject.FindGameObjectWithTag("GameManager").GetComponent<MainGameController>().isGameInProgress)

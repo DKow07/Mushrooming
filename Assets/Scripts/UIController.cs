@@ -4,8 +4,9 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Photon;
 
-public class UIController : MonoBehaviour
+public class UIController : PunBehaviour
 {
     public GameObject leavePanel; //TODO test
     public GameObject gatherPanel;
@@ -14,9 +15,10 @@ public class UIController : MonoBehaviour
 
     public static bool isGathering;
 
+   
+
     public void GatherMushroom()
     {
-        
         GameObject player = GameObject.FindGameObjectWithTag("Player");
 
         PlayerController playerController = player.gameObject.GetComponent<PlayerController>();
@@ -32,11 +34,11 @@ public class UIController : MonoBehaviour
             if (mushroom != null)
             {
                 MushroomController mushroomController = mushroom.gameObject.GetComponent<MushroomController>();
-                
-               
+                               
                 if (mushroomController != null)
                 {
                     int id = mushroomController.mushroomId;
+                    playerController.SendCollectingMushroom(id);
                     mushroomController.ShowTimerAndAddPoints(id);
                 }
                 else

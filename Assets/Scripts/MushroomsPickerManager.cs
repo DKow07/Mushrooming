@@ -21,6 +21,12 @@ public class MushroomsPickerManager : PunBehaviour
     public GameObject wolfMushroomPickerButtonBuy;
     public GameObject wolfMushroomPickerButtonChoose;
 
+    public GameObject alienMushroomPickerButtonBuy;
+    public GameObject alienMushroomPickerButtonChoose;
+
+    public GameObject spriteMushroomPickerButtonBuy;
+    public GameObject spriteMushroomPickerButtonChoose;
+
     void Start()
     {
         PlayerPrefs.SetInt("standardMushroomPicker", 1);
@@ -78,6 +84,27 @@ public class MushroomsPickerManager : PunBehaviour
         {
           //  wolfMushroomPickerButtonChoose.SetActive(true);
         }
+
+
+        if (currentMushroomPicker == 5)
+        {
+            alienMushroomPickerButtonChoose.SetActive(false);
+        }
+        else
+        {
+            //  wolfMushroomPickerButtonChoose.SetActive(true);
+        }
+
+
+
+        if (currentMushroomPicker == 6)
+        {
+            spriteMushroomPickerButtonChoose.SetActive(false);
+        }
+        else
+        {
+            //  wolfMushroomPickerButtonChoose.SetActive(true);
+        }
     }
 
    public void CheckAvalaibleMushroomPicker()
@@ -86,6 +113,8 @@ public class MushroomsPickerManager : PunBehaviour
         int duck = PlayerPrefs.GetInt("isBuyDuckMushroomPicker", 0);
         int penguin = PlayerPrefs.GetInt("isBuyPenguinMushroomPicker", 0);
         int wolf = PlayerPrefs.GetInt("isBuyWolfMushroomPicker", 0);
+        int alien = PlayerPrefs.GetInt("isBuyAlienMushroomPicker", 0);
+        int sprite = PlayerPrefs.GetInt("isBuySpriteMushroomPicker", 0);
 
         if (chicken == 1)
         {
@@ -129,6 +158,28 @@ public class MushroomsPickerManager : PunBehaviour
         {
             wolfMushroomPickerButtonBuy.SetActive(true);
             wolfMushroomPickerButtonChoose.SetActive(false);
+        }
+
+        if (alien == 1)
+        {
+            alienMushroomPickerButtonBuy.SetActive(false);
+            alienMushroomPickerButtonChoose.SetActive(true);
+        }
+        else
+        {
+            alienMushroomPickerButtonBuy.SetActive(true);
+            alienMushroomPickerButtonChoose.SetActive(false);
+        }
+
+        if (sprite == 1)
+        {
+            spriteMushroomPickerButtonBuy.SetActive(false);
+            spriteMushroomPickerButtonChoose.SetActive(true);
+        }
+        else
+        {
+            spriteMushroomPickerButtonBuy.SetActive(true);
+            spriteMushroomPickerButtonChoose.SetActive(false);
         }
     }
 

@@ -43,6 +43,9 @@ public class Circle
             return true;
         }
 
+        if ((position - other.position).magnitude < radius || (position - other.position).magnitude < other.radius)
+            return true;
+
 
 
         return false;

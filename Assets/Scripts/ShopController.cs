@@ -11,8 +11,8 @@ public class ShopController : MonoBehaviour
      * Kaczka id = 2 isBuyDuckMushroomPicker
      * Pingwin id = 3 isBuyPenguinMushroomPicker
      * Wolf id = 4 isBuyWolfMushroomPicker
-     * 
-     * 
+     * Alien id = 5 isBuyAlienMushroomPicker
+     * Sprite id = 6 isBuySpriteMushroomPicker
      * 
      * 
      * 
@@ -100,10 +100,57 @@ public class ShopController : MonoBehaviour
             Debug.Log("Posiadasz za mało pieniędzy by kupić wilka");
     }
 
+    //Kosmita
+    public void ChooseAlienMushroomPicker()
+    {
+        SetMushroomPicker(5, "Kosmita", 9, 3f, 0.5f);
+        GetComponent<MushroomsPickerManager>().alienMushroomPickerButtonChoose.SetActive(false);
+    }
+
+    public void BuyAlienMushroomPicker()
+    {
+        int bitcoin = PlayerPrefs.GetInt("bitcoin", 0);
+        int cost = 750;
+        if (bitcoin > cost)
+        {
+            bitcoin -= cost;
+            PlayerPrefs.SetInt("bitcoin", bitcoin);
+            PlayerPrefs.SetInt("isBuyAlienMushroomPicker", 1);
+            GetComponent<MushroomsPickerManager>().CheckAvalaibleMushroomPicker();
+            ActualizeScore();
+        }
+        else
+            Debug.Log("Posiadasz za mało pieniędzy by kupić wilka");
+    }
+
+    //Sprite
+    public void ChooseSpriteMushroomPicker()
+    {
+        SetMushroomPicker(6, "Sprite",15, 2f, 2f);
+        GetComponent<MushroomsPickerManager>().spriteMushroomPickerButtonChoose.SetActive(false);
+    }
+
+    public void BuySpriteMushroomPicker()
+    {
+        int bitcoin = PlayerPrefs.GetInt("bitcoin", 0);
+        int cost = 1000;
+        if (bitcoin > cost)
+        {
+            bitcoin -= cost;
+            PlayerPrefs.SetInt("bitcoin", bitcoin);
+            PlayerPrefs.SetInt("isBuySpriteMushroomPicker", 1);
+            GetComponent<MushroomsPickerManager>().CheckAvalaibleMushroomPicker();
+            ActualizeScore();
+        }
+        else
+            Debug.Log("Posiadasz za mało pieniędzy by kupić wilka");
+    }
+
     private void ActualizeScore()
     {
         Text text = GetComponent<MushroomsPickerManager>().bitcoinValue;
         text.text = PlayerPrefs.GetInt("bitcoin", 0).ToString();
+        GetComponent<MushroomsPickerManager>().CheckCurrentMushroomPicker();
     }
 
     public void SetMushroomPicker(int id, string name, int basket, float speed, float cutting)

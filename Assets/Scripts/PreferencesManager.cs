@@ -23,6 +23,7 @@ public class PreferencesManager : MonoBehaviour
     public GameObject atlasItemPodgrzybekEmpty;
     public GameObject atlasItemKaniaEmpty;
 
+    public static bool isDebugMode;
 
 
     void Start()
@@ -30,6 +31,20 @@ public class PreferencesManager : MonoBehaviour
         CheckMushroomsAtlas();
     }
 
+    public static void EnableDebugMode()
+    {
+        isDebugMode = true;
+    }
+
+     public static void DisableDebugMode()
+    {
+        isDebugMode = false;
+    }
+
+    public void ChangeDebugMode()
+     {
+         isDebugMode = !isDebugMode;
+     }
 
     void CheckMushroomsAtlas()
     {

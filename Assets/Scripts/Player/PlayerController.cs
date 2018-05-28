@@ -38,7 +38,8 @@ public class PlayerController : PunBehaviour
     {
         id = PhotonNetwork.playerList.Length;
         //  cam = Camera.main;
-        Instantiate(cameraPrefab, transform.position, Quaternion.identity);
+        if(photonView.isMine)
+            Instantiate(cameraPrefab, transform.position, Quaternion.identity);
         cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         motor = GetComponent<PlayerMovement>();
         canFollow = true;
@@ -81,11 +82,13 @@ public class PlayerController : PunBehaviour
     {
         try
         {
+            //  Touch touch = Input.touches[0];
+             // if ((touch.phase != TouchPhase.Ended && touch.phase != TouchPhase.Canceled) || (Input.GetMouseButtonDown(0) || Input.GetTouch(0).phase.Equals(TouchPhase.Began)) && canFollow && photonView.isMine && GameObject.FindGameObjectWithTag("GameManager").GetComponent<MainGameController>().isGameStarting)
             if ((Input.GetMouseButtonDown(0) || Input.GetTouch(0).phase.Equals(TouchPhase.Began)) && canFollow && photonView.isMine && GameObject.FindGameObjectWithTag("GameManager").GetComponent<MainGameController>().isGameStarting) //left 
             {
                 
                 motor.agent.isStopped = false; 
-                Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+                Ray ray = cam.ScreenPointToRay(Input.mousePosition); 
                 RaycastHit hit;
                 if (Physics.Raycast(ray, out hit, 100, movementMask))
                 {
@@ -97,8 +100,11 @@ public class PlayerController : PunBehaviour
 
             else if(!canFollow)
             {
-                if(!motor.agent.isStopped)
+                if (!motor.agent.isStopped)
+                {
                     motor.agent.Stop();
+                    motor.agent.isStopped = true;
+                }
             }
         }
         catch(Exception ex)
@@ -129,13 +135,17 @@ public class PlayerController : PunBehaviour
                     this.motor.agent.isStopped = false;
                 }
             }
+            else ///changes
+            {
+                this.canFollow = false;
+                this.motor.agent.isStopped = true;
+            }
         }
         catch(Exception ex)
         {
 
         }
      
-
         if(basket.canGather == false && fullBasketBlinking.GetComponent<BlinkingFullBasket>().isBlinking == false)
         {
             fullBasketBlinking.SetActive(true);
@@ -147,6 +157,14 @@ public class PlayerController : PunBehaviour
             fullBasketBlinking.SetActive(false);
             fullBasketBlinking.GetComponent<BlinkingFullBasket>().isBlinking = false;
             fullBasketBlinking.GetComponent<BlinkingFullBasket>().blink = false;
+        }
+
+        if (mushroomControllerId != null)
+        {
+            if (!SynchronizationController.CanGatherMushroom(mushroomControllerId.mushroomId))
+            {
+                gatherMushroomButton.SetActive(false);
+            }
         }
        
     }
@@ -188,32 +206,43 @@ public class PlayerController : PunBehaviour
     public Text pointsTextInfo;
     public GameObject cantAddToBasketPanel;
 
+    public MushroomController mushroomControllerId;
+
     void OnTriggerEnter(Collider collider)
     {
         if(collider.gameObject.tag == "Mushroom" && this.gameObject.GetComponent<Basket>().canGather)
         {
-            int currentCountOfMushrooms = GetComponent<Basket>().currentCountOfMushrooms;
-            int maxCountOfMushrooms = GetComponent<Basket>().maxCountOfMushrooms;
-            int mushroomsVolume = collider.gameObject.GetComponentInChildren<MushroomController>().mushroomVolume;
-            int pointsOfMushroom = collider.gameObject.GetComponentInChildren<MushroomController>().mushroomPoints;
-
-            int sum = currentCountOfMushrooms + mushroomsVolume;
-
-            if(sum > maxCountOfMushrooms)
+            MushroomController mushroomController = collider.gameObject.GetComponent<MushroomController>();
+            mushroomControllerId = mushroomController;
+            if(SynchronizationController.CanGatherMushroom(mushroomController.mushroomId))
             {
-                gatherMushroomButton.SetActive(true);
-                cantAddToBasketPanel.SetActive(true);
-                Debug.Log("Nie możesz zebrać więcej grzybów " + sum + " / " + maxCountOfMushrooms);
+                int currentCountOfMushrooms = GetComponent<Basket>().currentCountOfMushrooms;
+                int maxCountOfMushrooms = GetComponent<Basket>().maxCountOfMushrooms;
+                int mushroomsVolume = collider.gameObject.GetComponentInChildren<MushroomController>().mushroomVolume;
+                int pointsOfMushroom = collider.gameObject.GetComponentInChildren<MushroomController>().mushroomPoints;
+
+                int sum = currentCountOfMushrooms + mushroomsVolume;
+
+                if(sum > maxCountOfMushrooms)
+                {
+                    gatherMushroomButton.SetActive(true);
+                    cantAddToBasketPanel.SetActive(true);
+                    Debug.Log("Nie możesz zebrać więcej grzybów " + sum + " / " + maxCountOfMushrooms);
+                }
+                else
+                {
+                    cantAddToBasketPanel.SetActive(false);
+                    focusMushroom = collider.gameObject;
+                    gatherMushroomButton.SetActive(true);
+                }
+
+                pointsTextInfo.text = "Points: " + pointsOfMushroom;
+                volumeTextInfo.text = "Volume: " + mushroomsVolume;
             }
             else
             {
-                cantAddToBasketPanel.SetActive(false);
-                focusMushroom = collider.gameObject;
-                gatherMushroomButton.SetActive(true);
+                //powiadomienie o niemożności zebrania grzyba, zbierany jest przez kogoś innego
             }
-
-            pointsTextInfo.text = "Points: " + pointsOfMushroom;
-            volumeTextInfo.text = "Volume: " + mushroomsVolume;
         }
         if(collider.gameObject.CompareTag("Car"))
         {
@@ -233,6 +262,7 @@ public class PlayerController : PunBehaviour
             this.motor.agent.isStopped = false;
             focusMushroom = null;
             gatherMushroomButton.SetActive(false);
+            mushroomControllerId = null;
             if(cantAddToBasketPanel.GetActive() == true)
             {
                 cantAddToBasketPanel.SetActive(false);
@@ -282,20 +312,17 @@ public class PlayerController : PunBehaviour
     }
 
     void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-
     {
         if (stream.isWriting)
         {
             stream.SendNext(transform.position);
             stream.SendNext(transform.rotation);
         }
-            
         else
         {
             transform.position = (Vector3)stream.ReceiveNext();
             transform.rotation = (Quaternion)stream.ReceiveNext();
         }
-            
     }
 
     public void SendMessage(int id)
@@ -321,6 +348,19 @@ public class PlayerController : PunBehaviour
     public void EndGame()
     {
         GameObject.FindGameObjectWithTag("GameManager").GetComponent<MainGameController>().summaryPanel.SetActive(true);
+    }
+
+
+    public void SendCollectingMushroom(int id)
+    {
+        this.photonView.RPC("SendCollectingMushroomRPC", PhotonTargets.All, id);
+    }
+
+    [PunRPC]
+    public void SendCollectingMushroomRPC(int id)
+    {
+        SynchronizationController.AddCollectingMushroom(id);
+        Debug.Log("Dodałem grzyb do listy aktualnie zbieranych grzybów");
     }
 
 }
