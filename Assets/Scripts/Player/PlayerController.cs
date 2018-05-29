@@ -214,7 +214,7 @@ public class PlayerController : PunBehaviour
         {
             MushroomController mushroomController = collider.gameObject.GetComponent<MushroomController>();
             mushroomControllerId = mushroomController;
-            if(SynchronizationController.CanGatherMushroom(mushroomController.mushroomId))
+            if (SynchronizationController.CanGatherMushroom(mushroomController.mushroomId) && !SynchronizationController.IsOwnTrapOnMushroom(this.id, mushroomController.mushroomId))
             {
                 int currentCountOfMushrooms = GetComponent<Basket>().currentCountOfMushrooms;
                 int maxCountOfMushrooms = GetComponent<Basket>().maxCountOfMushrooms;
@@ -361,6 +361,24 @@ public class PlayerController : PunBehaviour
     {
         SynchronizationController.AddCollectingMushroom(id);
         Debug.Log("Dodałem grzyb do listy aktualnie zbieranych grzybów");
+    }
+
+    public void SendTrappingMushroom(int pid, int mushId)
+    {
+        this.photonView.RPC("SendTrappingMushroomRPC", PhotonTargets.All, pid, mushId);
+    }
+
+    [PunRPC]
+    public void SendTrappingMushroomRPC(int pid, int mushId)
+    {
+        PlayerTrap playerTrap = new PlayerTrap { MushroomId = mushId, PlayerId = pid };
+        SynchronizationController.AddMushroomWithTrap(playerTrap);
+        Debug.Log("Dodałem grzyb do listy grzybów z pułapkami mId " + mushId + " pId " + pid);
+    }
+
+    public bool IsMine()
+    {
+        return photonView.isMine;
     }
 
 }

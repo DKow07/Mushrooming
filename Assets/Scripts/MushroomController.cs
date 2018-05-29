@@ -30,24 +30,48 @@ public class MushroomController : PunBehaviour
         mushroomData = new Mushroom(mushroomId, mushroomPoints, mushroomName, this.gameObject, mushroomVolume); //prawdopodobnie do usunięcia
        // mushroomId = ServerMushroomController.idNext;
 
+    
+        SetCuttingTime();
+    }
+
+    private void SetCuttingTime()
+    {
+
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
         foreach (GameObject p in players)
         {
-            if (photonView.isMine)
+            if (p.GetComponent<PlayerController>().IsMine())
             {
                 timeDelayedInSeconds = Convert.ToInt32(Mathf.Floor(timeDelayedInSeconds * p.GetComponent<PlayerController>().currentMushroomPickerCutting));
             }
         }
     }
 
+    public bool isTrap = false;
+    bool isOn = false;
+
     void Update()
     {
        // if (id == null)
             //id = GameObject.FindGameObjectWithTag("GameManager").GetComponent<ServerMushroomController>().mushromsList.Find(xs => xs.Obj == this.gameObject).ID;
         
-        if(delayed <= 0)
+        if(delayed <= 0 && isTrap && isOn)
         {
+            isOn = false;
+            timer.SetActive(false);
+            slider.value = 0;
+            player = GameObject.FindGameObjectWithTag("Player");
+            player.GetComponent<Trap>().DecrementTraps();
+            GetComponentInChildren<Light>().enabled = true;
+            playerController = player.gameObject.GetComponent<PlayerController>();
+            //playerController.SetGatherButtonActive(false);
+            playerController.canFollow = true;
+            UIController.isGathering = false;
+        }
 
+        if(delayed <= 0 && !isTrap && isOn)
+        {
+            isOn = false;
             CheckNotification();
 
             player = GameObject.FindGameObjectWithTag("Player");
@@ -66,16 +90,47 @@ public class MushroomController : PunBehaviour
 
             //Destroy(this.gameObject);
             Destroy(timer);
+
+
+            if(SynchronizationController.IsTrapOnMushroom(mushroomId))
+            {
+                Stun();
+            }
         }
+
+        
     }
     int id;
 
     public void ShowTimerAndAddPoints(int id)
     {
+        isOn = true;
+        SetCuttingTime();
+        delayed = timeDelayedInSeconds;
+        isTrap = false;
         this.id = id;
         timer.SetActive(true);
         slider.maxValue = timeDelayedInSeconds;
         StartCoroutine("TimerStart");
+        
+    }
+
+    public void ShowTimerTrap()
+    {
+        isOn = true;
+        isTrap = true;
+        Debug.Log("ShowTimerTrap");
+        timer.SetActive(true);
+        slider.maxValue = 5;
+        timeDelayedInSeconds = 5;
+        delayed = timeDelayedInSeconds;
+        StartCoroutine("TimerStart");
+        //check? 
+    }
+
+    private void Stun()
+    {
+        Debug.Log("STUN");
     }
 
     IEnumerator TimerStart()

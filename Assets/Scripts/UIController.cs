@@ -15,6 +15,38 @@ public class UIController : PunBehaviour
 
     public static bool isGathering;
 
+    public GameObject trapPanel;
+
+    public void AddTrapOnMushroom()
+    {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        PlayerController playerController = player.gameObject.GetComponent<PlayerController>();
+
+        trapPanel.SetActive(false);
+        gatherPanel.SetActive(false);
+
+        playerController.canFollow = false;
+        playerController.motor.agent.isStopped = true;
+        UIController.isGathering = true;
+
+        GameObject mushroom = playerController.focusMushroom;
+        if(mushroom != null)
+        {
+            MushroomController mushroomController = mushroom.gameObject.GetComponent<MushroomController>();
+
+            if (mushroomController != null)
+            {
+                int id = mushroomController.mushroomId;
+                playerController.SendTrappingMushroom(playerController.id, id);
+                mushroomController.ShowTimerTrap();
+            }
+            else
+            {
+                Debug.Log("Mushroom controller is null");
+            }
+        }
+
+    }
    
 
     public void GatherMushroom()
@@ -25,6 +57,7 @@ public class UIController : PunBehaviour
         if(playerController.cantAddToBasketPanel.GetActive() == false)
         { 
             gatherPanel.SetActive(false);
+            trapPanel.SetActive(false);
        
             playerController.canFollow = false;
             playerController.motor.agent.isStopped = true;
