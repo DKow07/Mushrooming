@@ -52,9 +52,6 @@ public class MushroomController : PunBehaviour
 
     void Update()
     {
-       // if (id == null)
-            //id = GameObject.FindGameObjectWithTag("GameManager").GetComponent<ServerMushroomController>().mushromsList.Find(xs => xs.Obj == this.gameObject).ID;
-        
         if(delayed <= 0 && isTrap && isOn)
         {
             isOn = false;
@@ -94,12 +91,20 @@ public class MushroomController : PunBehaviour
 
             if(SynchronizationController.IsTrapOnMushroom(mushroomId))
             {
-                Stun();
+               // Stun();
+                GameObject.FindGameObjectWithTag("Player").GetComponent<Trap>().Stun();
+            }
+
+            if(stunTimer <= 0)
+            {
+                stunTimer = 5;
+                Debug.Log("Stun stopped");
             }
         }
 
         
     }
+
     int id;
 
     public void ShowTimerAndAddPoints(int id)
@@ -131,6 +136,24 @@ public class MushroomController : PunBehaviour
     private void Stun()
     {
         Debug.Log("STUN");
+        playerController.canFollow = false;
+        playerController.motor.agent.isStopped = true;
+        stunTimer = 5f;
+        StartCoroutine("StunTimer");
+    }
+
+    public float stunTimer = 5;
+
+    IEnumerator StunTimer()
+    {
+     
+        for (int i = 0; i < 5; i++)
+        {
+            Debug.Log("Timer stun start");
+         //  slider.value += 1;
+            stunTimer -= 1;
+            yield return new WaitForSeconds(1);
+        } 
     }
 
     IEnumerator TimerStart()

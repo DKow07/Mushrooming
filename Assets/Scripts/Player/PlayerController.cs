@@ -36,26 +36,33 @@ public class PlayerController : PunBehaviour
 
     void Start()
     {
-        id = PhotonNetwork.playerList.Length;
-        //  cam = Camera.main;
-        if(photonView.isMine)
-            Instantiate(cameraPrefab, transform.position, Quaternion.identity);
-        cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
-        motor = GetComponent<PlayerMovement>();
-        canFollow = true;
-        score = 0;
-        basket = GetComponent<Basket>();
-        gatherMushroomButton = GameObject.FindGameObjectWithTag("GatherMushroomPanel");
-        volumeTextInfo = GameObject.FindGameObjectWithTag("VolumeText").GetComponent<Text>();
-        pointsTextInfo = GameObject.FindGameObjectWithTag("PointsText").GetComponent<Text>();
-        cantAddToBasketPanel = GameObject.FindGameObjectWithTag("CantAddToBasketPanel");
-        fullBasketBlinking = GameObject.FindGameObjectWithTag("FullBasketBlinking");
-        cantAddToBasketPanel.SetActive(false);
-        gatherMushroomButton.SetActive(false);
-        fullBasketBlinking.SetActive(false);
+        try
+        {
+            id = PhotonNetwork.playerList.Length;
+            //  cam = Camera.main;
+            if (photonView.isMine)
+                Instantiate(cameraPrefab, transform.position, Quaternion.identity);
+            cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+            motor = GetComponent<PlayerMovement>();
+            canFollow = true;
+            score = 0;
+            basket = GetComponent<Basket>();
+            gatherMushroomButton = GameObject.FindGameObjectWithTag("GatherMushroomPanel");
+            volumeTextInfo = GameObject.FindGameObjectWithTag("VolumeText").GetComponent<Text>();
+            pointsTextInfo = GameObject.FindGameObjectWithTag("PointsText").GetComponent<Text>();
+            cantAddToBasketPanel = GameObject.FindGameObjectWithTag("CantAddToBasketPanel");
+            fullBasketBlinking = GameObject.FindGameObjectWithTag("FullBasketBlinking");
+            cantAddToBasketPanel.SetActive(false);
+            gatherMushroomButton.SetActive(false);
+            fullBasketBlinking.SetActive(false);
 
 
-        GetDataAboutPlayerMushroomPicker();
+            GetDataAboutPlayerMushroomPicker();
+        }
+        catch(Exception e)
+        {
+
+        }
 
     }
 
@@ -145,27 +152,37 @@ public class PlayerController : PunBehaviour
         {
 
         }
-     
-        if(basket.canGather == false && fullBasketBlinking.GetComponent<BlinkingFullBasket>().isBlinking == false)
+
+        try
         {
-            fullBasketBlinking.SetActive(true);
-            fullBasketBlinking.GetComponent<BlinkingFullBasket>().isBlinking = true;
-            fullBasketBlinking.GetComponent<BlinkingFullBasket>().blink = true;
+
+            if (basket.canGather == false && fullBasketBlinking.GetComponent<BlinkingFullBasket>().isBlinking == false)
+            {
+                fullBasketBlinking.SetActive(true);
+                fullBasketBlinking.GetComponent<BlinkingFullBasket>().isBlinking = true;
+                fullBasketBlinking.GetComponent<BlinkingFullBasket>().blink = true;
+            }
+            else if (basket.canGather == true && fullBasketBlinking.GetComponent<BlinkingFullBasket>().isBlinking == true)
+            {
+                fullBasketBlinking.SetActive(false);
+                fullBasketBlinking.GetComponent<BlinkingFullBasket>().isBlinking = false;
+                fullBasketBlinking.GetComponent<BlinkingFullBasket>().blink = false;
+            }
+
+            if (mushroomControllerId != null)
+            {
+                if (!SynchronizationController.CanGatherMushroom(mushroomControllerId.mushroomId))
+                {
+                    gatherMushroomButton.SetActive(false);
+                }
+            }
+
         }
-        else if (basket.canGather == true && fullBasketBlinking.GetComponent<BlinkingFullBasket>().isBlinking == true)
+        catch(Exception e)
         {
-            fullBasketBlinking.SetActive(false);
-            fullBasketBlinking.GetComponent<BlinkingFullBasket>().isBlinking = false;
-            fullBasketBlinking.GetComponent<BlinkingFullBasket>().blink = false;
+
         }
 
-        if (mushroomControllerId != null)
-        {
-            if (!SynchronizationController.CanGatherMushroom(mushroomControllerId.mushroomId))
-            {
-                gatherMushroomButton.SetActive(false);
-            }
-        }
        
     }
 
@@ -210,7 +227,7 @@ public class PlayerController : PunBehaviour
 
     void OnTriggerEnter(Collider collider)
     {
-        if(collider.gameObject.tag == "Mushroom" && this.gameObject.GetComponent<Basket>().canGather)
+        if(collider.gameObject.tag == "Mushroom" && this.gameObject.GetComponent<Basket>().canGather && IsMine())
         {
             MushroomController mushroomController = collider.gameObject.GetComponent<MushroomController>();
             mushroomControllerId = mushroomController;
@@ -256,7 +273,7 @@ public class PlayerController : PunBehaviour
 
     void OnTriggerExit(Collider collider)
     {
-        if (collider.gameObject.tag == "Mushroom")
+        if (collider.gameObject.tag == "Mushroom" && IsMine())
         {
             this.canFollow = true;
             this.motor.agent.isStopped = false;
