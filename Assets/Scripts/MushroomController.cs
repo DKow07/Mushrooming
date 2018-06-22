@@ -24,13 +24,13 @@ public class MushroomController : PunBehaviour
     public int mushroomVolume;
 
 
+
     void Start()
     {
         delayed = timeDelayedInSeconds;
         mushroomData = new Mushroom(mushroomId, mushroomPoints, mushroomName, this.gameObject, mushroomVolume); //prawdopodobnie do usunięcia
        // mushroomId = ServerMushroomController.idNext;
 
-    
         SetCuttingTime();
     }
 
@@ -77,29 +77,32 @@ public class MushroomController : PunBehaviour
             playerController.canFollow = true;
             UIController.isGathering = false;
             Basket basket = player.gameObject.GetComponent<Basket>();
+ 
             if(basket != null)
             {
                 basket.AddMushroomToBasket(this.gameObject);
                 basket.AddMushroomData(new Mushroom(mushroomId, mushroomPoints, mushroomName, this.gameObject, mushroomVolume));
             }
 
+         
             GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().SendMessage(id);
 
             //Destroy(this.gameObject);
             Destroy(timer);
 
 
-            if(SynchronizationController.IsTrapOnMushroom(mushroomId))
+            if (SynchronizationController.IsTrapOnMushroom(mushroomId))
             {
-               // Stun();
+                // Stun();
                 GameObject.FindGameObjectWithTag("Player").GetComponent<Trap>().Stun();
             }
 
-            if(stunTimer <= 0)
+            if (stunTimer <= 0)
             {
                 stunTimer = 5;
                 Debug.Log("Stun stopped");
             }
+            
         }
 
         

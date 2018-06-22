@@ -13,7 +13,11 @@ public class Basket : MonoBehaviour
     [HideInInspector]
     public bool canGather;
     public Text mushroomsInBasketText;
-    public int leavedTime; //czy nie powinno być w carController?
+    public int leavedTime; 
+
+
+    public AudioSource audioSource;
+    public AudioClip pickupSound;
 
 
 	void Start ()
@@ -27,6 +31,7 @@ public class Basket : MonoBehaviour
         else
             Debug.Log("MushroomsInBasketText is null");
         mushroomsDataInBasket = new List<Mushroom>();
+        audioSource = GetComponent<AudioSource>();
 	}
 
     void Update()
@@ -49,6 +54,7 @@ public class Basket : MonoBehaviour
             currentCountOfMushrooms += mushroom.GetComponentInChildren<MushroomController>().mushroomVolume;
             mushroomsInBasket.Add(mushroom);
             mushroomsInBasketText.text = GetMushroomsInBasketText();
+            audioSource.PlayOneShot(pickupSound);
             Debug.Log("Pomyślnie dodano grzybek");
         }
         else

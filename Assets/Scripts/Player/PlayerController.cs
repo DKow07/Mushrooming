@@ -34,8 +34,16 @@ public class PlayerController : PunBehaviour
 
     private GameObject fullBasketBlinking;
 
+    public AudioClip movementSFX;
+    public AudioClip droppingClip;
+    public AudioSource audioSource;
+
+
     void Start()
     {
+
+        audioSource = GetComponent<AudioSource>();
+
         try
         {
             id = PhotonNetwork.playerList.Length;
@@ -89,6 +97,14 @@ public class PlayerController : PunBehaviour
     {
         try
         {
+            if ((motor.agent.velocity.x != 0 || motor.agent.velocity.z != 0) && !audioSource.isPlaying)
+            {
+                audioSource.clip = movementSFX;
+                audioSource.loop = true;
+                audioSource.PlayOneShot(movementSFX);
+            }
+            //Debug.Log(motor.agent.velocity.ToString());
+
             //  Touch touch = Input.touches[0];
              // if ((touch.phase != TouchPhase.Ended && touch.phase != TouchPhase.Canceled) || (Input.GetMouseButtonDown(0) || Input.GetTouch(0).phase.Equals(TouchPhase.Began)) && canFollow && photonView.isMine && GameObject.FindGameObjectWithTag("GameManager").GetComponent<MainGameController>().isGameStarting)
             if ((Input.GetMouseButtonDown(0) || Input.GetTouch(0).phase.Equals(TouchPhase.Began)) && canFollow && photonView.isMine && GameObject.FindGameObjectWithTag("GameManager").GetComponent<MainGameController>().isGameStarting) //left 
@@ -121,7 +137,6 @@ public class PlayerController : PunBehaviour
 
         try
         {
-
             if (!UIController.isGathering)
             {
                 if (carController.canMove && gatherMushroomButton.GetActive() == false && this.canFollow == false && focusMushroom == null) //leci null bo carcontroller
@@ -155,7 +170,6 @@ public class PlayerController : PunBehaviour
 
         try
         {
-
             if (basket.canGather == false && fullBasketBlinking.GetComponent<BlinkingFullBasket>().isBlinking == false)
             {
                 fullBasketBlinking.SetActive(true);
@@ -182,8 +196,6 @@ public class PlayerController : PunBehaviour
         {
 
         }
-
-       
     }
 
     void SetFocus(Interactable newFocus)
@@ -198,8 +210,6 @@ public class PlayerController : PunBehaviour
         }
 
         newFocus.OnFocused(transform);
-
-
     }
 
     void RemoveFocus()
@@ -297,6 +307,7 @@ public class PlayerController : PunBehaviour
     public void LeaveMushroomsInCar()
     {
         //Basket basket = GetComponent<Basket>();
+        audioSource.PlayOneShot(droppingClip);
         StartCoroutine("LeaveMushrooms");
         basket.canGather = true;
         basket.mushroomsInBasket.Clear();

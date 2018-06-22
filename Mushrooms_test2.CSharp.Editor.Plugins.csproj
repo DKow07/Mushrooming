@@ -5,16 +5,16 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{4C645B28-317F-F624-08BF-A1FFECDB844D}</ProjectGuid>
+    <ProjectGuid>{28B024BA-F9DA-C0B9-E9A1-04F76B71A82A}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <AssemblyName>Assembly-CSharp-Editor</AssemblyName>
+    <AssemblyName>Assembly-CSharp-Editor-firstpass</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Full v3.5</TargetFrameworkProfile>
     <CompilerResponseFile></CompilerResponseFile>
-    <UnityProjectType>Editor:5</UnityProjectType>
+    <UnityProjectType>EditorPlugins:7</UnityProjectType>
     <UnityBuildTarget>Android:13</UnityBuildTarget>
     <UnityVersion>2017.3.0f3</UnityVersion>
     <RootNamespace></RootNamespace>
@@ -343,73 +343,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Photon Unity Networking\Editor\PhotonNetwork\AccountService.cs" />
-    <Compile Include="Assets\Photon Unity Networking\Editor\PhotonNetwork\CullAreaEditor.cs" />
-    <Compile Include="Assets\Photon Unity Networking\Editor\PhotonNetwork\PhotonConverter.cs" />
-    <Compile Include="Assets\Photon Unity Networking\Editor\PhotonNetwork\PhotonEditor.cs" />
-    <Compile Include="Assets\Photon Unity Networking\Editor\PhotonNetwork\PhotonEditorUtils.cs" />
-    <Compile Include="Assets\Photon Unity Networking\Editor\PhotonNetwork\PhotonGUI.cs" />
-    <Compile Include="Assets\Photon Unity Networking\Editor\PhotonNetwork\PhotonViewHandler.cs" />
-    <Compile Include="Assets\Photon Unity Networking\Editor\PhotonNetwork\PhotonViewInspector.cs" />
-    <Compile Include="Assets\Photon Unity Networking\Editor\PhotonNetwork\PunSceneSettings.cs" />
-    <Compile Include="Assets\Photon Unity Networking\Editor\PhotonNetwork\ReorderableListResources.cs" />
-    <Compile Include="Assets\Photon Unity Networking\Editor\PhotonNetwork\ServerSettingsInspector.cs" />
-    <Compile Include="Assets\Photon Unity Networking\Editor\PhotonNetwork\Views\PhotonAnimatorViewEditor.cs" />
-    <Compile Include="Assets\Photon Unity Networking\Editor\PhotonNetwork\Views\PhotonRigidbody2DViewEditor.cs" />
-    <Compile Include="Assets\Photon Unity Networking\Editor\PhotonNetwork\Views\PhotonRigidbodyViewEditor.cs" />
-    <Compile Include="Assets\Photon Unity Networking\Editor\PhotonNetwork\Views\PhotonTransformViewEditor.cs" />
-    <Compile Include="Assets\Photon Unity Networking\UtilityScripts\PhotonPlayer\Editor\PlayerRoomIndexingInspector.cs" />
-    <Compile Include="Assets\Photon Unity Networking\UtilityScripts\PhotonPlayer\Editor\PunTeamsInspector.cs" />
-    <Compile Include="Assets\ProCore\ProBuilder\About\Editor\pb_AboutWindow.cs" />
-    <Compile Include="Assets\ProCore\ProBuilder\About\Editor\pb_UpdateAvailable.cs" />
-    <Compile Include="Assets\ProCore\ProBuilder\About\Editor\pb_UpdateCheck.cs" />
-    <Compile Include="Assets\ProCore\ProBuilder\About\Editor\pb_VersionInfo.cs" />
-    <Compile Include="Assets\ProCore\ProBuilder\About\Editor\pb_VersionUtil.cs" />
-    <Compile Include="Assets\ProCore\ProBuilder\API Examples\Editor\ClearUnusedAttributes.cs" />
-    <Compile Include="Assets\ProCore\ProBuilder\API Examples\Editor\CreateShadowObject.cs" />
-    <Compile Include="Assets\ProCore\ProBuilder\API Examples\Editor\CustomAction.cs" />
-    <Compile Include="Assets\ProCore\ProBuilder\API Examples\Editor\EditorCallbackViewer.cs" />
-    <Compile Include="Assets\ProCore\ProBuilder\API Examples\Editor\RenameNewObjects.cs" />
-    <Compile Include="Assets\ProCore\ProBuilder\API Examples\Editor\SetCustomUnwrapParams.cs" />
-    <Compile Include="Assets\ProCore\ProBuilder\Editor\Addons\pb_Fbx.cs" />
-    <Compile Include="Assets\ProCore\ProBuilder\Editor\MenuItems\Actions\pb_ExportObj.cs" />
-    <Compile Include="Assets\ProCore\ProBuilder\Editor\MenuItems\Actions\pb_GenerateUV2.cs" />
-    <Compile Include="Assets\ProCore\ProBuilder\Editor\MenuItems\Actions\pb_MakeMeshAsset.cs" />
-    <Compile Include="Assets\ProCore\ProBuilder\Editor\MenuItems\Actions\pb_ProBuilderize.cs" />
-    <Compile Include="Assets\ProCore\ProBuilder\Editor\MenuItems\Actions\pb_StripProBuilderScripts.cs" />
-    <Compile Include="Assets\ProCore\ProBuilder\Editor\MenuItems\Geometry\pb_BridgeEdges.cs" />
-    <Compile Include="Assets\ProCore\ProBuilder\Editor\MenuItems\Geometry\pb_ConformNormals.cs" />
-    <Compile Include="Assets\ProCore\ProBuilder\Editor\MenuItems\Geometry\pb_ConnectEdges.cs" />
-    <Compile Include="Assets\ProCore\ProBuilder\Editor\MenuItems\Geometry\pb_DetachDeleteFace.cs" />
-    <Compile Include="Assets\ProCore\ProBuilder\Editor\MenuItems\Geometry\pb_ExtrudeElement.cs" />
-    <Compile Include="Assets\ProCore\ProBuilder\Editor\MenuItems\Geometry\pb_FlipEdge.cs" />
-    <Compile Include="Assets\ProCore\ProBuilder\Editor\MenuItems\Geometry\pb_FlipNormals.cs" />
-    <Compile Include="Assets\ProCore\ProBuilder\Editor\MenuItems\Geometry\pb_FreezeTransform.cs" />
-    <Compile Include="Assets\ProCore\ProBuilder\Editor\MenuItems\Geometry\pb_MergeFaces.cs" />
-    <Compile Include="Assets\ProCore\ProBuilder\Editor\MenuItems\Geometry\pb_SetPivot.cs" />
-    <Compile Include="Assets\ProCore\ProBuilder\Editor\MenuItems\Geometry\pb_Triangulate.cs" />
-    <Compile Include="Assets\ProCore\ProBuilder\Editor\MenuItems\Geometry\pb_VertexMergeWeld.cs" />
-    <Compile Include="Assets\ProCore\ProBuilder\Editor\MenuItems\Repair\pb_CleanLeakedMeshes.cs" />
-    <Compile Include="Assets\ProCore\ProBuilder\Editor\MenuItems\Repair\pb_ForceSceneRefresh.cs" />
-    <Compile Include="Assets\ProCore\ProBuilder\Editor\MenuItems\Repair\pb_RebuildMeshes.cs" />
-    <Compile Include="Assets\ProCore\ProBuilder\Editor\MenuItems\Repair\pb_RebuildSharedIndices.cs" />
-    <Compile Include="Assets\ProCore\ProBuilder\Editor\MenuItems\Repair\pb_RemoveDegenerateTris.cs" />
-    <Compile Include="Assets\ProCore\ProBuilder\Editor\MenuItems\Repair\pb_RepairColors.cs" />
-    <Compile Include="Assets\ProCore\ProBuilder\Editor\MenuItems\Repair\pb_RepairMeshReferences.cs" />
-    <Compile Include="Assets\ProCore\ProBuilder\Editor\MenuItems\Repair\pb_RepairUV.cs" />
-    <Compile Include="Assets\ProCore\ProBuilder\Editor\MenuItems\Repair\pb_ResetEntityMaterials.cs" />
-    <Compile Include="Assets\ProCore\ProBuilder\Editor\MenuItems\Repair\pb_UpgradeBasicToAdvanced.cs" />
-    <Compile Include="Assets\ProCore\ProBuilder\Editor\MenuItems\Selection\pb_EdgeSelection.cs" />
-    <Compile Include="Assets\ProCore\ProBuilder\Editor\MenuItems\Selection\pb_ExpandSelection.cs" />
-    <Compile Include="Assets\ProCore\ProBuilder\Editor\MenuItems\Selection\pb_InvertSelection.cs" />
-    <Compile Include="Assets\ProCore\ProBuilder\Editor\MenuItems\Selection\pb_MaterialSelection.cs" />
-    <Compile Include="Assets\ProCore\ProBuilder\Editor\MenuItems\Tools\pb_BooleanInterface.cs" />
-    <Compile Include="Assets\ProCore\ProBuilder\Editor\MenuItems\Tools\pb_MaterialSelection.cs" />
-    <Compile Include="Assets\ProCore\ProBuilder\Editor\MenuItems\Window\pb_ProBuilderMenuItems.cs" />
-    <Compile Include="Assets\ProCore\ProBuilder\Editor\pb_MenuItems.cs" />
-    <Compile Include="Assets\ProCore\ProBuilder\Editor\pb_MissingScriptEditor.cs" />
-    <Compile Include="Assets\ProCore\ProBuilder\Editor\pb_Preferences.cs" />
-    <Compile Include="Assets\ProCore\ProBuilder\Editor\pb_ScenePostProcessor.cs" />
+    <Compile Include="Assets\Standard Assets\Editor\CrossPlatformInput\CrossPlatformInputInitialize.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Photon Unity Networking\changelog.txt" />
@@ -439,6 +373,11 @@
     <None Include="Assets\ProCore\ProBuilder\Shader\pb_VertexPicker.shader" />
     <None Include="Assets\ProCore\ProBuilder\Shader\pb_VertexShader.shader" />
     <None Include="Assets\ProCore\ProBuilder\readme.txt" />
+    <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
+    <None Include="Assets\Standard Assets\ParticleSystems\ParticleSystemsGuidelines.txt" />
+    <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAdd.shader" />
+    <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAddSoft.shader" />
+    <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAlpha.shader" />
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Anton OFL.txt" />
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Bangers - OFL.txt" />
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\LiberationSans - OFL.txt" />

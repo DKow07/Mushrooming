@@ -15,9 +15,14 @@ public class Trap : PunBehaviour
     public Text currentTrapCountText;
 
     public enum TrapType { Stun }
+
+    public AudioSource audioSource;
+    public AudioClip stunClip;
     
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+
         try
         {
             if(GetComponent<PlayerController>().IsMine())
@@ -75,6 +80,7 @@ public class Trap : PunBehaviour
             GetComponent<PlayerController>().motor.agent.isStopped = true;
             stunTimer = 5f;
             StartCoroutine("StunTimer");
+            audioSource.PlayOneShot(stunClip);
         }
     }
 
