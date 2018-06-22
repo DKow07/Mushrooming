@@ -36,8 +36,9 @@ public class PlayerController : PunBehaviour
 
     public AudioClip movementSFX;
     public AudioClip droppingClip;
+    public AudioClip trapClip;
     public AudioSource audioSource;
-
+    
 
     void Start()
     {
@@ -407,6 +408,11 @@ public class PlayerController : PunBehaviour
     public bool IsMine()
     {
         return photonView.isMine;
+    }
+
+    public void PlayTrapSound()
+    {
+        audioSource.PlayOneShot(trapClip);
     }
 
 }

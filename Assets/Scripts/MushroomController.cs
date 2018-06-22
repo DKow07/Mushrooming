@@ -56,9 +56,11 @@ public class MushroomController : PunBehaviour
         {
             isOn = false;
             timer.SetActive(false);
+            
             slider.value = 0;
             player = GameObject.FindGameObjectWithTag("Player");
             player.GetComponent<Trap>().DecrementTraps();
+            player.GetComponent<PlayerController>().PlayTrapSound();
             GetComponentInChildren<Light>().enabled = true;
             playerController = player.gameObject.GetComponent<PlayerController>();
             //playerController.SetGatherButtonActive(false);
