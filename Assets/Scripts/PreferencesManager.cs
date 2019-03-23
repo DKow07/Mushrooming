@@ -29,6 +29,12 @@ public class PreferencesManager : MonoBehaviour
     void Start()
     {
         CheckMushroomsAtlas();
+        GetMoney(3500);
+    }
+
+    public void GetMoney(int money)
+    {
+        PlayerPrefs.SetInt("bitcoin", money);
     }
 
     public static void EnableDebugMode()

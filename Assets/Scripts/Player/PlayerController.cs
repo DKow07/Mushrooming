@@ -75,7 +75,6 @@ public class PlayerController : PunBehaviour
 
     }
 
-
     public int currentMushroomPicker;
     public string currentMushroomPickerName;
     public int currentMushroomPickerBasket;
@@ -106,9 +105,9 @@ public class PlayerController : PunBehaviour
             }
             //Debug.Log(motor.agent.velocity.ToString());
 
-            //  Touch touch = Input.touches[0];
-             // if ((touch.phase != TouchPhase.Ended && touch.phase != TouchPhase.Canceled) || (Input.GetMouseButtonDown(0) || Input.GetTouch(0).phase.Equals(TouchPhase.Began)) && canFollow && photonView.isMine && GameObject.FindGameObjectWithTag("GameManager").GetComponent<MainGameController>().isGameStarting)
-            if ((Input.GetMouseButtonDown(0) || Input.GetTouch(0).phase.Equals(TouchPhase.Began)) && canFollow && photonView.isMine && GameObject.FindGameObjectWithTag("GameManager").GetComponent<MainGameController>().isGameStarting) //left 
+              Touch touch = Input.touches[0];
+              if ((Input.GetMouseButtonDown(0) || Input.GetTouch(0).phase.Equals(TouchPhase.Began) || (touch.phase != TouchPhase.Ended && touch.phase != TouchPhase.Canceled)) && canFollow && photonView.isMine && GameObject.FindGameObjectWithTag("GameManager").GetComponent<MainGameController>().isGameStarting)
+            //if ((Input.GetMouseButtonDown(0) || Input.GetTouch(0).phase.Equals(TouchPhase.Began)) && canFollow && photonView.isMine && GameObject.FindGameObjectWithTag("GameManager").GetComponent<MainGameController>().isGameStarting) //left 
             {
                 
                 motor.agent.isStopped = false; 
@@ -335,7 +334,7 @@ public class PlayerController : PunBehaviour
         }
 
         scoreText = GameObject.FindGameObjectWithTag("ScoreText").GetComponent<Text>();
-        scoreText.text = "Wynik: " + this.score.ToString();
+        scoreText.text = "Score: " + this.score.ToString();
 
         basket.mushroomsDataInBasket.Clear();
     }
@@ -403,6 +402,24 @@ public class PlayerController : PunBehaviour
         PlayerTrap playerTrap = new PlayerTrap { MushroomId = mushId, PlayerId = pid };
         SynchronizationController.AddMushroomWithTrap(playerTrap);
         Debug.Log("Dodałem grzyb do listy grzybów z pułapkami mId " + mushId + " pId " + pid);
+    }
+
+
+    public void SendScoreToEnemy()
+    {
+        if (photonView.isMine)
+        {
+            Debug.LogWarning("sending score " + score);
+            this.photonView.RPC("SendScoreToEnemyRPC", PhotonTargets.Others, score);
+        }
+    }
+
+    [PunRPC]
+    public void SendScoreToEnemyRPC(int points)
+    {
+        Debug.LogWarning("points " + points);
+        GameObject gameManager = GameObject.FindGameObjectWithTag("GameManager");
+        gameManager.GetComponent<SynchronizationController>().CreateLeaderBoard(score, points);
     }
 
     public bool IsMine()

@@ -23,6 +23,8 @@ public class MushroomController : PunBehaviour
     public int mushroomId; //unique
     public int mushroomVolume;
 
+    public Animator animator;
+    public GameObject particleSystem;
 
 
     void Start()
@@ -32,17 +34,20 @@ public class MushroomController : PunBehaviour
        // mushroomId = ServerMushroomController.idNext;
 
         SetCuttingTime();
+
+        animator = GetComponentInParent<Animator>();
     }
 
     private void SetCuttingTime()
     {
-
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
         foreach (GameObject p in players)
         {
             if (p.GetComponent<PlayerController>().IsMine())
             {
-                timeDelayedInSeconds = Convert.ToInt32(Mathf.Floor(timeDelayedInSeconds * p.GetComponent<PlayerController>().currentMushroomPickerCutting));
+                timeDelayedInSeconds = Convert.ToInt32(Mathf.Ceil(timeDelayedInSeconds * ( 1 / p.GetComponent<PlayerController>().currentMushroomPickerCutting)));
+                //timeDelayedInSeconds++;
+                Debug.Log("time " + timeDelayedInSeconds);
             }
         }
     }
@@ -122,7 +127,9 @@ public class MushroomController : PunBehaviour
         timer.SetActive(true);
         slider.maxValue = timeDelayedInSeconds;
         StartCoroutine("TimerStart");
-        
+        animator.SetTrigger("MushroomTrigger");
+        particleSystem.SetActive(true);
+        particleSystem.GetComponent<ParticleSystem>().Play();
     }
 
     public void ShowTimerTrap()

@@ -24,6 +24,7 @@ public class MainGameController :  PunBehaviour
         isGameStarting = false;
     }
 
+    public int tmp;
 
     void Update()
     {
@@ -50,7 +51,7 @@ public class MainGameController :  PunBehaviour
 
                 GameObject player = GameObject.FindGameObjectWithTag("Player");
                 int prevValue = PlayerPrefs.GetInt("bitcoin", 0);
-                int tmp = player.GetComponent<PlayerController>().score;
+                tmp = player.GetComponent<PlayerController>().score;
                 int bitcoinValue = player.GetComponent<PlayerController>().score;
                 bitcoinValue += prevValue;
                 Debug.LogWarning("Poprzednia wartość " + prevValue + " zebrano " + tmp + " aktualna wartość " + bitcoinValue);
@@ -59,8 +60,14 @@ public class MainGameController :  PunBehaviour
                 isGameInProgress = false;
                 isGameStarting = false;
 
+                foreach (GameObject p in players)
+                {
+                        p.GetComponent<PlayerController>().SendScoreToEnemy();
+                }
+
                 foreach(GameObject p in players)
                 {
+
                     if(p.GetComponent<PlayerController>().id == 1)
                     {
                         p.GetComponent<PlayerController>().SendEndMessage();

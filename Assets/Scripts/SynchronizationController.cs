@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon;
 using System;
+using UnityEngine.UI;
 
 public class SynchronizationController : PunBehaviour 
 {
 
     public static List<int> currentlyCollectingMushrooms;
     public static List<PlayerTrap> mushroomsWithTrap;
+
+    public Text playerScoreWon;
+    public Text playerScoreLose;
 
 	void Start ()
     {
@@ -78,4 +82,33 @@ public class SynchronizationController : PunBehaviour
             return false;
         }*/
     }
+
+    public void CreateLeaderBoard(int myScore, int enemyScore)
+    {
+
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        int s = -1;
+        foreach (GameObject p in players)
+        {
+            if(p.GetComponent<PlayerController>().IsMine())
+             s = p.GetComponent<PlayerController>().score;
+        }
+
+        Debug.LogWarning("SCoresssssssssss " + s);
+
+        Debug.LogWarning("my " + myScore + " e " + enemyScore);
+        if(s > enemyScore || s == enemyScore)
+        {
+            playerScoreWon.text = "Your score: " + s;
+            playerScoreLose.text = "Enemy score: " + enemyScore;
+        }
+        else if(enemyScore > s)
+        {
+            playerScoreLose.text = "Your score: " + s;
+            playerScoreWon.text = "Enemy score: " + enemyScore;
+        }
+    }
+
+
+
 }
