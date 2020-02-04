@@ -4,22 +4,22 @@ Gra multiplayer przeznaczona na platformę Android, napisana w języku **C#** pr
 
 Kto z was zbierze najwięcej grzybów? 
 
-![Main Menu](Screeny/1.jpg)
+![Main Menu](Screeny\1.jpg?raw=true)
 
 Odblokuj nowe postacie
 
-![Main Menu](Screeny/2.jpg)
+![Shop](Screeny/2.jpg?raw=true)
 
 Odkryj wszystkie grzyby w atlasie
 
-![Main Menu](Screeny/3.jpg)
+![Atlas](Screeny/3.jpg?raw=true)
 
 Zbieraj grzyby i zanoś je do samochodu by zdobywać punkty
 
-![Main Menu](Screeny/4.jpg)
+![Gameplay1](Screeny/4.jpg?raw=true)
 
 Podkładaj pułapki 
 
-![Main Menu](Screeny/5.jpg)
+![Gameplay2](Screeny/5.jpg?raw=true)
 
-![Main Menu](Screeny/6.jpg)
+![Gameplay2](Screeny/6.jpg?raw=true)
